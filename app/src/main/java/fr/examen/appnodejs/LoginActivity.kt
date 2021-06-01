@@ -3,8 +3,6 @@ package fr.examen.appnodejs
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
 import fr.examen.appnodejs.api.LoginRequest
 import fr.examen.appnodejs.api.LoginResponse
 import kotlinx.android.synthetic.main.activity_login.*
@@ -15,13 +13,13 @@ import retrofit2.Response
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var sessionManager: SessionManager
-    private lateinit var apiUser: ApiUser
+    private lateinit var apiClient: ApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        apiUser = ApiUser()
+        apiClient = ApiClient()
         sessionManager = SessionManager(this)
 
         btConnect.setOnClickListener {
@@ -32,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
 
             if( (login !== "" ) && (password !== "" )) {
-                apiUser.getApiService().login(LoginRequest(login = login, password = password))
+                apiClient.getApiService(this).login(LoginRequest(login = login, password = password))
                     .enqueue(object : Callback<LoginResponse> {
                         override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                             // Error logging in

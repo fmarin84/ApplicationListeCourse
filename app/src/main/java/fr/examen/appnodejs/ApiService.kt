@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.http.*
 
 
-interface NodeJsAPI {
+interface ApiService {
 
 //    @GET("List")
 //    fun getList(@Header("Authorization") authHeader: String): Call<kotlin.collections.List<List>>
@@ -17,7 +17,8 @@ interface NodeJsAPI {
 //    fun fetchLists(@Header("Authorization") token: String): Call<kotlin.collections.List<ListShopResponse>>
 
     @GET(Constants.LIST_URL)
-    fun fetchLists(@Header("Authorization") token: String):  Call<kotlin.collections.List<ListShop>>
+    fun fetchLists():  Call<kotlin.collections.List<ListShop>>
+//@Header("Authorization") token: String
 
     //@FormUrlEncoded
     @Headers("Content-Type:application/json")
