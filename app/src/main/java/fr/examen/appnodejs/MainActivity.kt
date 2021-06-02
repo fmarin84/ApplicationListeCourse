@@ -11,8 +11,6 @@ import fr.examen.appnodejs.api.ListShop
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.*
 
-const val BASE_URL = "http://ec2-23-20-194-1.compute-1.amazonaws.com:3333/"
-
 class MainActivity : AppCompatActivity() {
 
     private var TAG = "MainActivity"
@@ -25,30 +23,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        var context = this
         apiClient = ApiClient()
         sessionManager = SessionManager(this)
 
         initRecyclerView()
 
         //getting recyclerview from xml
-        val recyclerView = findViewById(R.id.recyclerView) as RecyclerView
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
         //adding a layoutmanager
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
         fetchLists()
+
     }
 
     private fun initRecyclerView(){
         recyclerView.apply {
-            customAdapter = CustomAdapter()
+            customAdapter = CustomAdapter(context)
             adapter = customAdapter
         }
     }
 
 
     /**
-     * Function to fetch posts
+     * Function to fetch lists
      */
     private fun fetchLists() {
 

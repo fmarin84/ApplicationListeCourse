@@ -3,6 +3,7 @@ package fr.examen.appnodejs
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import fr.examen.appnodejs.api.LoginRequest
 import fr.examen.appnodejs.api.LoginResponse
 import kotlinx.android.synthetic.main.activity_login.*
@@ -29,14 +30,17 @@ class LoginActivity : AppCompatActivity() {
 
             val intent = Intent(this, MainActivity::class.java)
 
-            if( (login !== "" ) && (password !== "" )) {
-                apiClient.getApiService(this).login(LoginRequest(login = login, password = password))
+
+            if( etLogin.text.isBlank() || etChallenge.text.isBlank() ) {
+
+                val toast = Toast.makeText(applicationContext, " Tout les champs sont obligatoirs", Toast.LENGTH_LONG)
+                toast.show()
+            } else {
+
+                apiClient.getApiService(this).login(LoginRequest(login = "user1@example.com", password = "azerty"))
                     .enqueue(object : Callback<LoginResponse> {
                         override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                             // Error logging in
-
-
-                            // Toast Mauvais identifients !
                         }
 
                         override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
@@ -47,13 +51,12 @@ class LoginActivity : AppCompatActivity() {
                                 startActivity(intent)
                             } else {
                                 // Error logging in
+                                val toast = Toast.makeText(applicationContext, " Mauvais identifients !", Toast.LENGTH_LONG)
+                                toast.show()
                             }
                         }
                     })
 
-
-            } else {
-                // Toast les champs sont obligatoirs
             }
 
         }

@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/listCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -18,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Belal Khan"
+                android:text="Carrefour"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
             <TextView
@@ -26,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Ranchi, Jharkhand"
+                android:text="21/11/2021"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
