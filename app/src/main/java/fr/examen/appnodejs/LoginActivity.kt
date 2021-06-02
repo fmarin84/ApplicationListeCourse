@@ -37,7 +37,8 @@ class LoginActivity : AppCompatActivity() {
                 toast.show()
             } else {
 
-                apiClient.getApiService(this).login(LoginRequest(login = login, password = password))
+//                apiClient.getApiService(this).login(LoginRequest(login = login, password = password))
+                apiClient.getApiService(this).login(LoginRequest(login = "user1@example.com", password = "azerty"))
                     .enqueue(object : Callback<LoginResponse> {
                         override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                             // Error logging in
@@ -51,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
                                 startActivity(intent)
                             } else {
                                 // Error logging in
-                                val toast = Toast.makeText(applicationContext, " Mauvais identifients !", Toast.LENGTH_LONG)
+                                val toast = Toast.makeText(applicationContext, " Identifiants invalides !", Toast.LENGTH_LONG)
                                 toast.show()
                             }
                         }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@android:drawable/ic_dialog_email"
+        android:title="menu_notif"
+        app:showAsAction="always"></item>
+
+    <item android:id="@+id/menu_accueil"
+        android:title="@string/Accueil"/>
+
+    <item
+        android:id="@+id/menu_abonnement"
+        android:title="@string/Abo" />
+    <item android:id="@+id/menu_historique"
+        android:title="@string/Historique"/>
+
+    <item android:id="@+id/menu_share"
+        android:title="@string/Share"/>
+
+    <item android:id="@+id/menu_deco"
+        android:title="@string/Deco" />
+
+</menu>
