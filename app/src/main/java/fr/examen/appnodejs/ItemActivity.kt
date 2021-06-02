@@ -42,7 +42,7 @@ class ItemActivity : AppCompatActivity() {
 
     private fun initRecyclerView(){
         rcItem.apply {
-            itemAdapter = ItemAdapter()
+            itemAdapter = ItemAdapter(context, apiClient)
             adapter = itemAdapter
         }
     }
@@ -59,29 +59,13 @@ class ItemActivity : AppCompatActivity() {
             .enqueue(object : Callback<List<Item>> {
 
                 override fun onFailure(call: Call<List<Item>>, t: Throwable) {
-                    println("onFailure")
-                    println(t)
-                    println("call")
-                    println(call)
                 }
 
                 override fun onResponse(call: Call<List<Item>>, response: Response<List<Item>>) {
 
                     val ItemResponse = response.body()!!
 
-                    println("ItemResponse")
-                    println(ItemResponse)
-
-
                     if (response.code() == 200 ) {
-
-//                        var itemsList: List<String> = emptyList()
-//                        for (item in itemsList) {
-//                            if(item.fk_id_list === 1){
-//                                itemsList.toMutableList().add(item)
-//                            }
-//                        }
-
                         itemAdapter.item = ItemResponse.toMutableList()
                         itemAdapter.notifyDataSetChanged()
                     } else {

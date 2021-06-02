@@ -28,9 +28,6 @@ class CustomAdapter(
     override fun onBindViewHolder(holder: CustomAdapter.ViewHolder, position: Int) {
         holder.bindItems(list[position])
 
-//        println("list[position]")
-//        println(list[position])
-
         holder.tvShop.setOnClickListener {
             val intent = Intent(context, ItemActivity::class.java)
             intent.putExtra("list", list[position])

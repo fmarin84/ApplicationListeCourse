@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import fr.examen.appnodejs.api.Item
+import fr.examen.appnodejs.api.ItemRequestUpdate
 import fr.examen.appnodejs.api.ListShop
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.*
@@ -58,10 +60,6 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<List<ListShop>>, t: Throwable) {
 //                     Error fetching posts
-                    println("onFailure")
-                    println(t)
-                    println("call")
-                    println(call)
                 }
 
                 override fun onResponse(
@@ -69,7 +67,6 @@ class MainActivity : AppCompatActivity() {
                     response: Response<List<ListShop>>
                 ) {
                     // Handle function to display posts
-
                     val ListShopResponse = response.body()!!
 
                     if (response.code() == 200 ) {
