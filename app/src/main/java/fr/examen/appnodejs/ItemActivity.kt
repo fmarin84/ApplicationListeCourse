@@ -40,14 +40,20 @@ class ItemActivity : AppCompatActivity() {
         //getting recyclerview from xml
         val recyclerView = findViewById<RecyclerView>(R.id.rcItem)
 
-        initRecyclerView()
+        val list = intent.getSerializableExtra("list") as ListShop
+
+
+        initRecyclerView(list.archived)
 
         //adding a layoutmanager
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
         fetchItems()
-
-        val list = intent.getSerializableExtra("list") as ListShop
+//        if(list.archived){
+//            fetchItemsDisable()
+//        } else {
+//            fetchItems()
+//        }
 
         val btAdd = findViewById(R.id.addItem) as FloatingActionButton
 
@@ -100,9 +106,9 @@ class ItemActivity : AppCompatActivity() {
 
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView(isArchive: Boolean){
         rcItem.apply {
-            itemAdapter = ItemAdapter(context, apiClient)
+            itemAdapter = ItemAdapter(context, apiClient, isArchive)
             adapter = itemAdapter
         }
     }
@@ -148,8 +154,8 @@ class ItemActivity : AppCompatActivity() {
         }
 
         if(item.itemId == R.id.menu_historique){
-//            var intent = Intent(this, Historique::class.java)
-//            startActivity(intent)
+            var intent = Intent(this, ListArchiveActivity::class.java)
+            startActivity(intent)
         }
 
         if(item.itemId == R.id.menu_share){

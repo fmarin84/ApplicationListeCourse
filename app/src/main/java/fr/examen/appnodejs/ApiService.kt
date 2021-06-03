@@ -7,6 +7,10 @@ import retrofit2.http.*
 
 interface ApiService {
 
+
+    @GET(Constants.LIST_ARCHIVE_URL)
+    fun fetchListsArchive():  Call<kotlin.collections.List<ListShop>>
+
     @Headers("Content-Type:application/json")
     @POST(Constants.ITEM_URL)
     fun insertItem(@Body request: ItemRequest ):  Call<Item>
