@@ -36,9 +36,6 @@ class ItemAdapter(
 
             val obj = item[position]
 
-            println("position")
-            println(position)
-
             val dlg = Dialog(context)
             dlg.setContentView(R.layout.item_edit)
             val qte = dlg.findViewById<EditText>(R.id.editQte)
@@ -77,8 +74,6 @@ class ItemAdapter(
                 }
             }
         }
-
-
 
 
         holder.btDelete.setOnClickListener {

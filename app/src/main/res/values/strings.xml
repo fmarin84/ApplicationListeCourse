@@ -18,8 +18,10 @@
     <string name="Deco">Déconnexion</string>
 
 
-    <string name="list_message_delete_confir">Etes vous sur de vouloir supprimer cette acticle</string>
+    <string name="list_message_delete_confir">Etes vous sur de vouloir supprimer cette liste</string>
+    <string name="list_message_archive_confir">Etes vous sur de vouloir archiver cette list</string>
     <string name="art_message_delete_confir">Etes vous sur de vouloir supprimer cette acticle</string>
+    <string name="buttonarchive">Archiver</string>
     <string name="buttondelete">Supprimer</string>
     <string name="buttoncancel">Annuler</string>
 

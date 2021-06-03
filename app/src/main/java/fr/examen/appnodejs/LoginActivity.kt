@@ -37,8 +37,8 @@ class LoginActivity : AppCompatActivity() {
                 toast.show()
             } else {
 
-//                apiClient.getApiService(this).login(LoginRequest(login = login, password = password))
-                apiClient.getApiService(this).login(LoginRequest(login = "user1@example.com", password = "azerty"))
+//                apiClient.getApiService(this).login(LoginRequest(login = "user2@example.com", password = "azerty"))
+                apiClient.getApiService(this).login(LoginRequest(login = login, password = password))
                     .enqueue(object : Callback<LoginResponse> {
                         override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                             // Error logging in

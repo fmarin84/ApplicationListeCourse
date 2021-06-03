@@ -21,6 +21,18 @@ interface ApiService {
     @GET("item/list/{listId}")
     fun fetchItems(@Path("listId") listId: Int):  Call<kotlin.collections.List<Item>>
 
+
+    @Headers("Content-Type:application/json")
+    @POST(Constants.LIST_URL)
+    fun insertList(@Body request: ListShopRequest ):  Call<ListShop>
+
+    @DELETE("list/{id}")
+    fun deleteList(@Path("id") id: Int ):  Call<ListShop>
+
+    @Headers("Content-Type:application/json")
+    @PUT(Constants.LIST_URL)
+    fun updateList(@Body request: ListShopRequest ):  Call<ListShop>
+
     @GET(Constants.LIST_URL)
     fun fetchLists():  Call<kotlin.collections.List<ListShop>>
 
