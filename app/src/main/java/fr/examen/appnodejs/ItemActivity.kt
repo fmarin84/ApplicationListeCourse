@@ -1,15 +1,21 @@
 package fr.examen.appnodejs
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.examen.appnodejs.api.Item
+import fr.examen.appnodejs.api.ItemRequest
 import fr.examen.appnodejs.api.ListShop
 import kotlinx.android.synthetic.main.activity_item.*
 import retrofit2.Call
@@ -40,6 +46,57 @@ class ItemActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
         fetchItems()
+
+        val list = intent.getSerializableExtra("list") as ListShop
+
+        val btAdd = findViewById(R.id.addItem) as FloatingActionButton
+
+        btAdd.setOnClickListener {
+
+            val dlg = Dialog(this)
+            dlg.setContentView(R.layout.item_edit)
+
+            val tvItemTitle = dlg.findViewById<TextView>(R.id.tvItemTitle)
+            tvItemTitle.setText( "Ajout d'un acrticle")
+
+            val btAdd = dlg.findViewById<Button>(R.id.btEditAdd)
+            btAdd.setText( "Ajouter")
+
+            val qte = dlg.findViewById<EditText>(R.id.editQte)
+            val label = dlg.findViewById<EditText>(R.id.editLabel)
+
+            dlg.show()
+
+            dlg.findViewById<Button>(R.id.btEditCancel).setOnClickListener {
+                dlg.dismiss()
+            }
+
+            dlg.findViewById<Button>(R.id.btEditAdd).setOnClickListener {
+                if(!label.text.isBlank() && !qte.text.isBlank()) {
+
+                    val obj = Item(0,  label.text.toString(), qte.text.toString().toInt(), false, list.id )
+
+                    apiClient.getApiService(this).insertItem(ItemRequest(item = obj))
+                        .enqueue(object : Callback<Item> {
+
+                            override fun onFailure(call: Call<Item>, t: Throwable) {
+                            }
+
+                            override fun onResponse(call: Call<Item>, response: Response<Item>) {
+                            }
+
+                        })
+
+//                    itemAdapter.notifyDataSetChanged()
+                    finish()
+                    startActivity(getIntent());
+
+                    qte.text.clear()
+                    label.text.clear()
+                    dlg.dismiss()
+                }
+            }
+        }
 
     }
 

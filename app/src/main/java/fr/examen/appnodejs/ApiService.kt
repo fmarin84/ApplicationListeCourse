@@ -7,12 +7,16 @@ import retrofit2.http.*
 
 interface ApiService {
 
+    @Headers("Content-Type:application/json")
+    @POST(Constants.ITEM_URL)
+    fun insertItem(@Body request: ItemRequest ):  Call<Item>
+
     @DELETE("item/{id}")
     fun deleteItem(@Path("id") id: Int ):  Call<Item>
 
     @Headers("Content-Type:application/json")
     @PUT(Constants.ITEM_URL)
-    fun updateItem(@Body request: ItemRequestUpdate ):  Call<Item>
+    fun updateItem(@Body request: ItemRequest ):  Call<Item>
 
     @GET("item/list/{listId}")
     fun fetchItems(@Path("listId") listId: Int):  Call<kotlin.collections.List<Item>>

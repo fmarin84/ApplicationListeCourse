@@ -16,4 +16,11 @@
     <string name="Historique">Historique</string>
     <string name="Share">Partage</string>
     <string name="Deco">Déconnexion</string>
+
+
+    <string name="list_message_delete_confir">Etes vous sur de vouloir supprimer cette acticle</string>
+    <string name="art_message_delete_confir">Etes vous sur de vouloir supprimer cette acticle</string>
+    <string name="buttondelete">Supprimer</string>
+    <string name="buttoncancel">Annuler</string>
+
 </resources>

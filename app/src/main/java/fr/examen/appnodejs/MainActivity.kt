@@ -10,8 +10,6 @@ import android.view.MenuItem
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import fr.examen.appnodejs.api.Item
-import fr.examen.appnodejs.api.ItemRequestUpdate
 import fr.examen.appnodejs.api.ListShop
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.*

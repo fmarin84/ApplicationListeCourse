@@ -38,7 +38,7 @@
 
 
                 <ImageButton
-                    android:id="@+id/btModif"
+                    android:id="@+id/bteditItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -46,11 +46,11 @@
                     android:src="@android:drawable/ic_menu_edit" />
 
                 <ImageButton
-                    android:id="@+id/btDeleteCat"
+                    android:id="@+id/btDeleteItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/btModif"
+                    android:layout_toRightOf="@+id/bteditItem"
                     android:src="@android:drawable/ic_menu_delete" />
 
             </RelativeLayout>
