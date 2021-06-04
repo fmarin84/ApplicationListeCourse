@@ -9,24 +9,24 @@ import android.view.MenuItem
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import fr.examen.appnodejs.api.ListShop
-import kotlinx.android.synthetic.main.activity_list_share.*
+import fr.examen.appnodejs.api.Notification
+import fr.examen.appnodejs.api.User
+import kotlinx.android.synthetic.main.activity_notifications.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ListShareActivity : AppCompatActivity() {
+class NotificationsActivity : AppCompatActivity() {
 
-    private var TAG = "ListShareActivity"
-    lateinit var listShareAdapter: ListShareAdapter
+    private var TAG = "NotificationActivity"
+    lateinit var notificationAdapter: NotificationAdapter
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
-
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_share)
+        setContentView(R.layout.activity_notifications)
 
         var context = this
         apiClient = ApiClient()
@@ -35,52 +35,61 @@ class ListShareActivity : AppCompatActivity() {
         initRecyclerView()
 
         //getting recyclerview from xml
-        val recyclerView = findViewById<RecyclerView>(R.id.rcListShare)
+        val recyclerView = findViewById<RecyclerView>(R.id.rcNotifications)
 
         //adding a layoutmanager
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
-        fetchListsShare()
+        fetchAllNotifications()
     }
 
     private fun initRecyclerView(){
-        rcListShare.apply {
-            listShareAdapter = ListShareAdapter(context, apiClient)
-            adapter = listShareAdapter
+        rcNotifications.apply {
+            notificationAdapter = NotificationAdapter(context, apiClient)
+            adapter = notificationAdapter
         }
     }
 
+
     /**
-     * Function to fetch lists
+     * Function to fetch Notifications
      */
-    private fun fetchListsShare() {
+    private fun fetchAllNotifications() {
 
         // Pass the token as parameter
-        apiClient.getApiService(this).fetchListsShare()
-                .enqueue(object : Callback<List<ListShop>> {
 
-                    override fun onFailure(call: Call<List<ListShop>>, t: Throwable) {
-//                     Error fetching posts
-                    }
+        apiClient.getApiService(this).fetchCurrentUser()
+            .enqueue(object : Callback<User> {
 
-                    override fun onResponse(
-                            call: Call<List<ListShop>>,
-                            response: Response<List<ListShop>>
-                    ) {
-                        // Handle function to display posts
-                        val ListShopResponse = response.body()!!
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                }
 
-                        if (response.code() == 200 ) {
-                            listShareAdapter.list = ListShopResponse.toMutableList()
-                            listShareAdapter.notifyDataSetChanged()
-                        } else {
-                            // Error logging in
-                        }
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    val UsersResponse = response.body()!!
 
-                    }
-                })
+                    apiClient.getApiService(this@NotificationsActivity)
+                        .fetchAllNotifications(UsersResponse.id)
+                        .enqueue(object : Callback<List<Notification>> {
+
+                            override fun onResponse(
+                                call: Call<List<Notification>>,
+                                response: Response<List<Notification>>
+                            ) {
+                                val NotificationResponse = response.body()!!
+
+                                if (response.code() == 200) {
+                                    notificationAdapter.notifications =
+                                        NotificationResponse.toMutableList()
+                                    notificationAdapter.notifyDataSetChanged()
+                                }
+                            }
+
+                            override fun onFailure(call: Call<List<Notification>>, t: Throwable) {
+                            }
+                        })
+                }
+            })
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
@@ -118,4 +127,5 @@ class ListShareActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.listofcourse_menu, menu)
         return true
     }
+
 }

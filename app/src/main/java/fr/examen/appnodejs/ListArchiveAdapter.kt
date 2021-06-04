@@ -79,7 +79,7 @@ class ListArchiveAdapter (
 
     //the class is hodling the list view
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvShop = itemView.findViewById(R.id.textViewShop) as TextView
+        val tvShop = itemView.findViewById(R.id.textViewNotif) as TextView
         val tvDate  = itemView.findViewById(R.id.textViewDate) as TextView
         val btDelete = itemView.findViewById(R.id.btDelete) as ImageView
 

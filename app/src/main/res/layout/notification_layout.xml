@@ -15,44 +15,20 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textViewNotif"
-                android:layout_width="150dp"
+                android:id="@+id/tvNTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:text="Carrefour"
+                android:text="Liste périmer"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
             <ImageButton
-                android:id="@+id/btModif"
+                android:id="@+id/btLue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="196dp"
                 android:layout_toRightOf="@+id/textViewNotif"
-                android:src="@android:drawable/ic_menu_edit" />
-
-            <ImageButton
-                android:id="@+id/btArchive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/btModif"
-                android:src="@android:drawable/ic_menu_save" />
-
-            <ImageButton
-                android:id="@+id/btShare"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/btArchive"
-                android:src="@android:drawable/ic_menu_share" />
-
-            <ImageButton
-                android:id="@+id/btDelete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/btShare"
-                android:src="@android:drawable/ic_menu_delete" />
+                android:src="@android:drawable/ic_menu_view" />
 
             <TextView
                 android:id="@+id/textViewDate"
@@ -60,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="21/11/2021"
-                android:layout_below="@+id/textViewNotif"
+                android:layout_below="@+id/tvNTitle"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
         </RelativeLayout>

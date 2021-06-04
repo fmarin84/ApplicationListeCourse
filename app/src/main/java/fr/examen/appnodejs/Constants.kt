@@ -12,5 +12,7 @@ object Constants {
     const val LIST_SHARE_DELETE_URL = "/share/delete/{listId}/{userId}"
     const val LIST_SHARE_URL = "/list/share"
     const val CURRENT_USER_URL = "/useraccount"
+    const val NOTIFICATION_GET_URL = "/notification/user/{userId}"
+    const val NOTIFICATION_URL = "/notification"
 
 }

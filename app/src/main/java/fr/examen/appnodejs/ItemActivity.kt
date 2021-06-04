@@ -148,9 +148,9 @@ class ItemActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        if(item.itemId == R.id.menu_abonnement){
-//            var intent = Intent(this, Historique::class.java)
-//            startActivity(intent)
+        if(item.itemId == R.id.menu_notif){
+            var intent = Intent(this, NotificationsActivity::class.java)
+            startActivity(intent)
         }
 
         if(item.itemId == R.id.menu_historique){

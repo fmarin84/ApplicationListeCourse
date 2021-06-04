@@ -7,6 +7,12 @@ import retrofit2.http.*
 
 interface ApiService {
 
+    @Headers("Content-Type:application/json")
+    @PUT(Constants.NOTIFICATION_URL)
+    fun updateNotification(@Body request: NotificationRequest ):  Call<Notification>
+
+    @GET(Constants.NOTIFICATION_GET_URL)
+    fun fetchAllNotifications(@Path("userId") userId: Int ):  Call<kotlin.collections.List<Notification>>
 
     @GET(Constants.LIST_SHARE_URL)
     fun fetchListsShare():  Call<kotlin.collections.List<ListShop>>
