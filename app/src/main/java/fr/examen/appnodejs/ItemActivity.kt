@@ -159,8 +159,8 @@ class ItemActivity : AppCompatActivity() {
         }
 
         if(item.itemId == R.id.menu_share){
-//            var intent = Intent(this, Historique::class.java)
-//            startActivity(intent)
+            var intent = Intent(this, ListShareActivity::class.java)
+            startActivity(intent)
         }
 
         if(item.itemId == R.id.menu_accueil){

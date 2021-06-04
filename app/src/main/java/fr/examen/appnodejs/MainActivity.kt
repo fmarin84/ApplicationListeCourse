@@ -8,17 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.examen.appnodejs.api.Item
+import android.widget.ArrayAdapter
 import fr.examen.appnodejs.api.ListShop
 import fr.examen.appnodejs.api.ListShopRequest
+import fr.examen.appnodejs.api.User
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.list_share_edit.*
 import retrofit2.*
 
 class MainActivity : AppCompatActivity() {
@@ -110,6 +110,39 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+    /**
+     * Function to fetch users
+     */
+    private fun fetchUsers() {
+
+        // Pass the token as parameter
+        apiClient.getApiService(this).fetchUsers()
+            .enqueue(object : Callback<List<User>> {
+
+                override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+
+                    val UsersResponse = response.body()!!
+
+                    if (response.code() == 200 ) {
+                        val adapter: ArrayAdapter<User> = ArrayAdapter(
+                                this@MainActivity,
+                                android.R.layout.simple_spinner_item,
+                                UsersResponse.toMutableList()
+                        )
+                        spUser.adapter = adapter
+                    }
+                }
+            })
+    }
+
+
+
+
     /**
      * Function to fetch lists
      */
@@ -162,8 +195,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         if(item.itemId == R.id.menu_share){
-//            var intent = Intent(this, Historique::class.java)
-//            startActivity(intent)
+            var intent = Intent(this, ListShareActivity::class.java)
+            startActivity(intent)
         }
 
         if(item.itemId == R.id.menu_accueil){

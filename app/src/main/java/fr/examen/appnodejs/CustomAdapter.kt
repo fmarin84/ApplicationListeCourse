@@ -12,6 +12,8 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import fr.examen.appnodejs.api.ListShop
 import fr.examen.appnodejs.api.ListShopRequest
+import fr.examen.appnodejs.api.User
+import kotlinx.android.synthetic.main.list_share_edit.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +36,81 @@ class CustomAdapter(
     override fun onBindViewHolder(holder: CustomAdapter.ViewHolder, position: Int) {
         holder.bindItems(list[position])
 
+
+        holder.btShare.setOnClickListener {
+
+            val obj = list[position]
+
+            val dlg = Dialog(context)
+            dlg.setContentView(R.layout.list_share_edit)
+            /*
+            val etDate = dlg.findViewById<EditText>(R.id.editTextDate)
+            val etShop = dlg.findViewById<EditText>(R.id.editShop)
+            etShop.setText(obj.shop.toString())
+            */
+            val isState = dlg.findViewById<CheckBox>(R.id.isState)
+            val spUser = dlg.findViewById<Spinner>(R.id.spUser)
+
+
+
+            // Pass the token as parameter
+            apiClient.getApiService(context).fetchUsers()
+                    .enqueue(object : Callback<List<User>> {
+
+                        override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                            TODO("Not yet implemented")
+                        }
+
+                        override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+
+                            val UsersResponse = response.body()!!
+
+                            if (response.code() == 200 ) {
+
+                                val adapter: ArrayAdapter<User> = ArrayAdapter(
+                                        context,
+                                        android.R.layout.simple_spinner_item,
+                                        UsersResponse.toMutableList()
+                                )
+                                spUser.adapter = adapter
+
+                            }
+                        }
+                    })
+
+
+            dlg.show()
+
+            dlg.findViewById<Button>(R.id.btCancel).setOnClickListener {
+                dlg.dismiss()
+            }
+
+            dlg.findViewById<Button>(R.id.btPartage).setOnClickListener {
+                //if(!etShop.text.isBlank() && !etDate.text.isBlank()) {
+
+                val user = spUser.selectedItem as User
+
+                var state = 0
+                if(isState.toString().toBoolean()){
+                     state = 1
+                }
+
+                    apiClient.getApiService(context).addListShare(obj.id, user.id, state)
+                            .enqueue(object : Callback<ListShop> {
+                                override fun onFailure(call: Call<ListShop>, t: Throwable) {
+                                }
+
+                                override fun onResponse(call: Call<ListShop>, response: Response<ListShop> ) {
+                                }
+
+                            })
+
+                    notifyDataSetChanged()
+                    dlg.dismiss()
+                }
+            //}
+        }
+
         holder.btArchive.setOnClickListener {
 
             val obj = list[position]
@@ -47,8 +124,6 @@ class CustomAdapter(
 
                         obj.archived = true
 
-                        println("icijepases")
-                        println(obj)
                         apiClient.getApiService(context).updateList(ListShopRequest(list = obj))
                             .enqueue(object : Callback<ListShop> {
 
@@ -75,8 +150,7 @@ class CustomAdapter(
 
             val obj = list[position]
 
-            println("listposition")
-            println(obj)
+
             val dlg = Dialog(context)
             dlg.setContentView(R.layout.list_edit)
             val etDate = dlg.findViewById<EditText>(R.id.editTextDate)

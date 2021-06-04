@@ -10,22 +10,23 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.examen.appnodejs.api.ListShop
-import kotlinx.android.synthetic.main.activity_list_archive.*
+import kotlinx.android.synthetic.main.activity_list_share.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ListArchiveActivity : AppCompatActivity() {
+class ListShareActivity : AppCompatActivity() {
 
-    private var TAG = "ListArchiveActivity"
-    lateinit var listArchiveAdapter: ListArchiveAdapter
+    private var TAG = "ListShareActivity"
+    lateinit var listShareAdapter: ListShareAdapter
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
+
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_archive)
+        setContentView(R.layout.activity_list_share)
 
         var context = this
         apiClient = ApiClient()
@@ -34,50 +35,50 @@ class ListArchiveActivity : AppCompatActivity() {
         initRecyclerView()
 
         //getting recyclerview from xml
-        val recyclerView = findViewById<RecyclerView>(R.id.rcListArchive)
+        val recyclerView = findViewById<RecyclerView>(R.id.rcListShare)
 
         //adding a layoutmanager
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
-        fetchListsArchive()
+        fetchListsShare()
     }
 
     private fun initRecyclerView(){
-        rcListArchive.apply {
-            listArchiveAdapter = ListArchiveAdapter(context, apiClient)
-            adapter = listArchiveAdapter
+        rcListShare.apply {
+            listShareAdapter = ListShareAdapter(context, apiClient)
+            adapter = listShareAdapter
         }
     }
 
     /**
      * Function to fetch lists
      */
-    private fun fetchListsArchive() {
+    private fun fetchListsShare() {
 
         // Pass the token as parameter
-        apiClient.getApiService(this).fetchListsArchive()
-            .enqueue(object : Callback<List<ListShop>> {
+        apiClient.getApiService(this).fetchListsShare()
+                .enqueue(object : Callback<List<ListShop>> {
 
-                override fun onFailure(call: Call<List<ListShop>>, t: Throwable) {
+                    override fun onFailure(call: Call<List<ListShop>>, t: Throwable) {
 //                     Error fetching posts
-                }
-
-                override fun onResponse(
-                    call: Call<List<ListShop>>,
-                    response: Response<List<ListShop>>
-                ) {
-                    // Handle function to display posts
-                    val ListShopResponse = response.body()!!
-
-                    if (response.code() == 200 ) {
-                        listArchiveAdapter.list = ListShopResponse.toMutableList()
-                        listArchiveAdapter.notifyDataSetChanged()
-                    } else {
-                        // Error logging in
                     }
 
-                }
-            })
+                    override fun onResponse(
+                            call: Call<List<ListShop>>,
+                            response: Response<List<ListShop>>
+                    ) {
+                        // Handle function to display posts
+                        val ListShopResponse = response.body()!!
+
+                        if (response.code() == 200 ) {
+                            listShareAdapter.list = ListShopResponse.toMutableList()
+                            listShareAdapter.notifyDataSetChanged()
+                        } else {
+                            // Error logging in
+                        }
+
+                    }
+                })
     }
 
 
@@ -117,5 +118,4 @@ class ListArchiveActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.listofcourse_menu, menu)
         return true
     }
-
 }
