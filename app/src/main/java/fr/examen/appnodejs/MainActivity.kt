@@ -12,11 +12,8 @@ import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import fr.examen.appnodejs.api.Item
 import android.widget.ArrayAdapter
-import fr.examen.appnodejs.api.ListShop
-import fr.examen.appnodejs.api.ListShopRequest
-import fr.examen.appnodejs.api.User
+import fr.examen.appnodejs.api.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.list_share_edit.*
 import retrofit2.*
@@ -45,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         //adding a layoutmanager
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
+        reAuth()
         fetchLists()
 
         // user
@@ -140,8 +138,38 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
+    private fun reAuth(){
 
+        apiClient.getApiService(this).fetchCurrentUser()
+            .enqueue(object : Callback<User> {
 
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                }
+
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    val UsersResponse = response.body()!!
+
+                    apiClient.getApiService(this@MainActivity).reauth(LoginRequest(login = UsersResponse.login, password = UsersResponse.challenge))
+                        .enqueue(object : Callback<LoginResponse> {
+                            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                                // Error logging in
+                            }
+
+                            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                                val loginResponse = response.body()
+
+                                if (response.code() == 200 && loginResponse != null) {
+                                    sessionManager.saveAuthToken(loginResponse.token)
+                                } else {
+                                    // Error logging in
+                                    val toast = Toast.makeText(applicationContext, " Identifiants invalides !", Toast.LENGTH_LONG)
+                                    toast.show()
+                                }
+                            }
+                        })
+                }
+            })
+    }
 
     /**
      * Function to fetch lists

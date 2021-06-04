@@ -75,4 +75,8 @@ interface ApiService {
     @POST(Constants.LOGIN_URL)
     fun login(@Body request: LoginRequest ): Call<LoginResponse>
 
+    @Headers("Content-Type:application/json")
+    @POST(Constants.RE_LOGIN_URL)
+    fun reauth(@Body request: LoginRequest ): Call<LoginResponse>
+
 }
