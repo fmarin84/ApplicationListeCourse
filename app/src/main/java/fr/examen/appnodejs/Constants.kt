@@ -14,5 +14,7 @@ object Constants {
     const val CURRENT_USER_URL = "/useraccount"
     const val NOTIFICATION_GET_URL = "/notification/user/{userId}"
     const val NOTIFICATION_URL = "/notification"
+    const val PAYMENT_URL = "/payment"
+    const val ROLE_USER_URL = "/useraccount/add/role_user/{userId}/{roleId}"
 
 }

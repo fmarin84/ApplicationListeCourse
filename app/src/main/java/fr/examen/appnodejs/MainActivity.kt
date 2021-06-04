@@ -190,8 +190,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         if(item.itemId == R.id.menu_abonnement){
-          //  var intent = Intent(this, NotificationsActivity::class.java)
-          //  startActivity(intent)
+            var intent = Intent(this, SubscribActivity::class.java)
+            startActivity(intent)
         }
 
         if(item.itemId == R.id.menu_historique){

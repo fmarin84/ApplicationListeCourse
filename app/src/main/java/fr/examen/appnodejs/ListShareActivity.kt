@@ -96,6 +96,11 @@ class ListShareActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        if(item.itemId == R.id.menu_abonnement){
+            var intent = Intent(this, SubscribActivity::class.java)
+            startActivity(intent)
+        }
+
         if(item.itemId == R.id.menu_historique){
             var intent = Intent(this, ListArchiveActivity::class.java)
             startActivity(intent)

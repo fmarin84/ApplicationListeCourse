@@ -8,6 +8,14 @@ import retrofit2.http.*
 interface ApiService {
 
     @Headers("Content-Type:application/json")
+    @POST(Constants.ROLE_USER_URL)
+    fun addRoleUser(@Path("userId") userId: Int, @Path("roleId") roleId: Int):  Call<User>
+
+    @Headers("Content-Type:application/json")
+    @POST(Constants.PAYMENT_URL)
+    fun insertPayment(@Body request: PaymentRequest):  Call<Payment>
+
+    @Headers("Content-Type:application/json")
     @PUT(Constants.NOTIFICATION_URL)
     fun updateNotification(@Body request: NotificationRequest ):  Call<Notification>
 
