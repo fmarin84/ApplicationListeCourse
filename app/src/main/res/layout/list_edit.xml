@@ -28,28 +28,11 @@
             android:id="@+id/editTextDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="date" />
-
-
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter Date" />
 
 
-
     </LinearLayout>
-
-<!--    <DatePicker-->
-<!--        android:id="@+id/editTextDate"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:datePickerMode="calendar"-->
-<!--        android:calendarViewShown="false"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"

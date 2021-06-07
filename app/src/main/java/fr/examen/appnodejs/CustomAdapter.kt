@@ -164,10 +164,15 @@ class CustomAdapter(
             val etShop = dlg.findViewById<EditText>(R.id.editShop)
             etShop.setText(obj.shop.toString())
 
-            val etDate = dlg.findViewById<EditText>(R.id.editText1)
+            val etDate = dlg.findViewById<EditText>(R.id.editTextDate)
+
+            val parser =  SimpleDateFormat("yyyy-MM-dd")
+            val formatter = SimpleDateFormat("dd/MM/yyyy")
+            val formattedDate = formatter.format(parser.parse(obj.date))
 
             etDate.setOnClickListener(View.OnClickListener {
                 val cldr = Calendar.getInstance()
+                cldr.setTime(parser.parse(obj.date)) // all done
                 val day = cldr[Calendar.DAY_OF_MONTH]
                 val month = cldr[Calendar.MONTH]
                 val year = cldr[Calendar.YEAR]
@@ -181,6 +186,8 @@ class CustomAdapter(
                 )
                 picker.show()
             })
+
+            etDate.setText(formattedDate)
 
             dlg.show()
 
