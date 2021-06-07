@@ -146,9 +146,8 @@ class ListShareAdapter  (
 
                             })
 
-                        notifyItemRemoved(position)
-//                        notifyItemRangeRemoved(position, item.size )
-//                        notifyDataSetChanged()
+                        list.removeAt(position)
+                        notifyDataSetChanged()
 
                         dialog.dismiss()
                     })

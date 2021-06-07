@@ -101,11 +101,8 @@ class ItemAdapter(
                                     }
 
                                 })
-
-                            notifyItemRemoved(position)
-//                        notifyItemRangeRemoved(position, item.size )
-//                        notifyDataSetChanged()
-
+                            item.removeAt(position)
+                            notifyDataSetChanged()
                             dialog.dismiss()
                         })
                 builder.create().show()

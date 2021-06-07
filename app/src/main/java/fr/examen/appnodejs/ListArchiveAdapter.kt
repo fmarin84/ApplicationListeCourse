@@ -36,6 +36,10 @@ class ListArchiveAdapter (
         holder.btDelete.setOnClickListener {
             val obj = list[position]
 
+            println("listikuzejbhrfkjzebfkjzebkjzebfkzjebfkjb")
+
+            println(list)
+
             val builder = AlertDialog.Builder(context)
             builder.setMessage(R.string.list_message_delete_confir)
                 .setNegativeButton(R.string.buttoncancel,
@@ -56,10 +60,8 @@ class ListArchiveAdapter (
 
                             })
 
-                        notifyItemRemoved(position)
-//                        notifyItemRangeRemoved(position, item.size )
-//                        notifyDataSetChanged()
-
+                        list.removeAt(position)
+                        notifyDataSetChanged()
                         dialog.dismiss()
                     })
             builder.create().show()

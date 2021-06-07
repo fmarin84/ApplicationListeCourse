@@ -55,8 +55,8 @@ class NotificationAdapter (
 
                 })
 
-            notifyItemRemoved(position)
-            //notifyDataSetChanged()
+            notifications.removeAt(position)
+            notifyDataSetChanged()
         }
 
         holder.tvNTitle.setOnClickListener {

@@ -146,14 +146,11 @@ class CustomAdapter(
                                 }
 
                             })
-
-                        notifyItemRemoved(position)
-//                        notifyDataSetChanged()
-
+                        list.removeAt(position)
+                        notifyDataSetChanged()
                         dialog.dismiss()
                     })
             builder.create().show()
-
         }
 
         holder.btModif.setOnClickListener {
@@ -236,6 +233,7 @@ class CustomAdapter(
                             .enqueue(object : Callback<ListShop> {
 
                                 override fun onFailure(call: Call<ListShop>, t: Throwable) {
+
                                 }
 
                                 override fun onResponse(
@@ -246,10 +244,8 @@ class CustomAdapter(
 
                             })
 
-                        notifyItemRemoved(position)
-//                        notifyItemRangeRemoved(position, item.size )
-//                        notifyDataSetChanged()
-
+                        list.removeAt(position)
+                        notifyDataSetChanged()
                         dialog.dismiss()
                     })
             builder.create().show()
@@ -290,6 +286,7 @@ class CustomAdapter(
 
         }
     }
+
 
 
 }

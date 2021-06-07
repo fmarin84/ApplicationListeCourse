@@ -2,12 +2,14 @@ package fr.examen.appnodejs
 
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,8 @@ import fr.examen.appnodejs.api.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.list_share_edit.*
 import retrofit2.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,15 +57,33 @@ class MainActivity : AppCompatActivity() {
             val dlg = Dialog(context)
             dlg.setContentView(R.layout.list_edit)
 
-
             val tvItemTitle = dlg.findViewById<TextView>(R.id.tvListTitle)
             tvItemTitle.setText( "Ajout d'une liste de course")
 
             val btAdd = dlg.findViewById<Button>(R.id.btEditAdd)
             btAdd.setText( "Ajouter")
 
-            val etDate = dlg.findViewById<EditText>(R.id.editTextDate)
+//            val etDate = dlg.findViewById<EditText>(R.id.editTextDate)
             val etShop = dlg.findViewById<EditText>(R.id.editShop)
+
+
+            val etDate = dlg.findViewById<EditText>(R.id.editTextDate)
+            etDate.setOnClickListener(View.OnClickListener {
+                val cldr = Calendar.getInstance()
+                val day = cldr[Calendar.DAY_OF_MONTH]
+                val month = cldr[Calendar.MONTH]
+                val year = cldr[Calendar.YEAR]
+                // date picker dialog
+                val picker = DatePickerDialog(
+                    context,
+                    { view, year, monthOfYear, dayOfMonth -> etDate.setText(dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year) },
+                    year,
+                    month,
+                    day
+                )
+                picker.show()
+            })
+
 
             dlg.show()
 
@@ -86,10 +108,7 @@ class MainActivity : AppCompatActivity() {
                             }
 
                         })
-
-//                    customAdapter.notifyDataSetChanged()
-                    finish()
-                    startActivity(getIntent());
+                    fetchLists()
 
                     etDate.text.clear()
                     etShop.text.clear()
