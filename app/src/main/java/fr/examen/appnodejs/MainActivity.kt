@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             dlg.findViewById<Button>(R.id.btEditAdd).setOnClickListener {
                 if(!etShop.text.isBlank() && !etDate.text.isBlank()) {
 
-                    val obj = ListShop(0,  etShop.text.toString(), etDate.text.toString(), false, 0)
+                    val obj = ListShop(0,  etShop.text.toString(), etDate.text.toString(), false, 0, 0)
 
                     apiClient.getApiService(context).insertList(ListShopRequest(list = obj))
                         .enqueue(object : Callback<ListShop> {

@@ -176,6 +176,12 @@ class ListShareAdapter  (
         val btModif = itemView.findViewById(R.id.btModif) as ImageView
 
         fun bindItems(list: ListShop) {
+            if(list.state == 0) {
+                btModif.visibility =  View.INVISIBLE
+            } else if (list.state == 1) {
+                btModif.visibility =  View.VISIBLE
+            }
+
             tvShop.text = list.shop
             if(list.date.length <= 10){
                 tvDate.text = list.date
