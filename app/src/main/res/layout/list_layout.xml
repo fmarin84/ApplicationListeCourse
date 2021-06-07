@@ -18,16 +18,27 @@
                 android:id="@+id/textViewNotif"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
                 android:padding="15dp"
                 android:text="Carrefour"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+
+            <ImageButton
+                android:id="@+id/btSee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="80dp"
+                android:layout_toRightOf="@+id/textViewDate"
+                android:src="@android:drawable/ic_menu_view" />
+
 
             <ImageButton
                 android:id="@+id/btModif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/textViewNotif"
+                android:layout_below="@+id/textViewDate"
+                android:layout_marginLeft="80dp"
                 android:src="@android:drawable/ic_menu_edit" />
 
             <ImageButton
@@ -35,6 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:layout_below="@+id/textViewDate"
                 android:layout_toRightOf="@+id/btModif"
                 android:src="@android:drawable/ic_menu_save" />
 
@@ -43,6 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:layout_below="@+id/textViewDate"
                 android:layout_toRightOf="@+id/btArchive"
                 android:src="@android:drawable/ic_menu_share" />
 
@@ -51,16 +64,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:layout_below="@+id/textViewDate"
                 android:layout_toRightOf="@+id/btShare"
                 android:src="@android:drawable/ic_menu_delete" />
 
             <TextView
                 android:id="@+id/textViewDate"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="15dp"
                 android:text="21/11/2021"
-                android:layout_below="@+id/textViewNotif"
+                android:layout_toRightOf="@+id/textViewNotif"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
         </RelativeLayout>

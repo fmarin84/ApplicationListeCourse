@@ -3,7 +3,10 @@ package fr.examen.appnodejs
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.textfield.TextInputLayout
 import fr.examen.appnodejs.api.LoginRequest
 import fr.examen.appnodejs.api.LoginResponse
 import kotlinx.android.synthetic.main.activity_login.*
@@ -28,10 +31,13 @@ class LoginActivity : AppCompatActivity() {
             val login = etLogin.text.toString()
             val password = etChallenge.text.toString()
 
+            println("loginuyhergtejhrtg")
+            println(login)
+
+
             val intent = Intent(this, MainActivity::class.java)
 
-
-            if( etLogin.text.isBlank() || etChallenge.text.isBlank() ) {
+            if( login.isBlank() || password.isBlank() ) {
 
                 val toast = Toast.makeText(applicationContext, " Tout les champs sont obligatoirs", Toast.LENGTH_LONG)
                 toast.show()

@@ -39,7 +39,6 @@ class CustomAdapter(
     override fun onBindViewHolder(holder: CustomAdapter.ViewHolder, position: Int) {
         holder.bindItems(list[position])
 
-
         holder.btShare.setOnClickListener {
 
             val obj = list[position]
@@ -251,6 +250,12 @@ class CustomAdapter(
             builder.create().show()
         }
 
+        holder.btSee.setOnClickListener {
+            val intent = Intent(context, ItemActivity::class.java)
+            intent.putExtra("list", list[position])
+            context.startActivity(intent)
+        }
+
         holder.tvShop.setOnClickListener {
             val intent = Intent(context, ItemActivity::class.java)
             intent.putExtra("list", list[position])
@@ -272,6 +277,7 @@ class CustomAdapter(
         val btModif = itemView.findViewById(R.id.btModif) as ImageView
         val btArchive = itemView.findViewById(R.id.btArchive) as ImageView
         val btShare = itemView.findViewById(R.id.btShare) as ImageView
+        val btSee = itemView.findViewById(R.id.btSee) as ImageView
 
         fun bindItems(list: ListShop) {
             tvShop.text = list.shop
