@@ -14,6 +14,7 @@ import fr.examen.appnodejs.api.ListShop
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 
 class ListArchiveAdapter (
     val context: Context,
@@ -85,7 +86,10 @@ class ListArchiveAdapter (
 
         fun bindItems(list: ListShop) {
             tvShop.text = list.shop
-            tvDate.text = list.date
+            val parser =  SimpleDateFormat("yyyy-MM-dd")
+            val formatter = SimpleDateFormat("dd/MM/yyyy")
+            val formattedDate = formatter.format(parser.parse(list.date))
+            tvDate.text = formattedDate
         }
     }
 

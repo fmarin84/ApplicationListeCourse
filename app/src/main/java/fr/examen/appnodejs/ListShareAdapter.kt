@@ -1,6 +1,7 @@
 package fr.examen.appnodejs
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
@@ -19,6 +20,8 @@ import fr.examen.appnodejs.api.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ListShareAdapter  (
     val context: Context,
@@ -44,12 +47,25 @@ class ListShareAdapter  (
 
             val dlg = Dialog(context)
             dlg.setContentView(R.layout.list_edit)
-            val etDate = dlg.findViewById<EditText>(R.id.editTextDate)
             val etShop = dlg.findViewById<EditText>(R.id.editShop)
-
-//println("dateTime")
-//            etDate.setText(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(obj.date))
             etShop.setText(obj.shop.toString())
+
+            val etDate = dlg.findViewById<EditText>(R.id.editText1)
+            etDate.setOnClickListener(View.OnClickListener {
+                val cldr = Calendar.getInstance()
+                val day = cldr[Calendar.DAY_OF_MONTH]
+                val month = cldr[Calendar.MONTH]
+                val year = cldr[Calendar.YEAR]
+                // date picker dialog
+                val picker = DatePickerDialog(
+                    context,
+                    { view, year, monthOfYear, dayOfMonth -> etDate.setText(dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year) },
+                    year,
+                    month,
+                    day
+                )
+                picker.show()
+            })
 
             dlg.show()
 
@@ -58,10 +74,10 @@ class ListShareAdapter  (
             }
 
             dlg.findViewById<Button>(R.id.btEditAdd).setOnClickListener {
-                if(!etShop.text.isBlank() && !etDate.text.isBlank()) {
+                if(!etShop.text.isBlank() && !etDate.text.isBlank() ) {
 
                     obj.shop= etShop.text.toString()
-//                    obj.date = etDate.text.toString()
+                    obj.date = etDate.text.toString()
 
                     apiClient.getApiService(context).updateList(ListShopRequest(list = obj))
                         .enqueue(object : Callback<ListShop> {
@@ -77,7 +93,7 @@ class ListShareAdapter  (
                         })
 
                     notifyDataSetChanged()
-                    etDate.text.clear()
+//                    etDate.text.clear()
                     etShop.text.clear()
                     dlg.dismiss()
                 }
@@ -150,7 +166,14 @@ class ListShareAdapter  (
 
         fun bindItems(list: ListShop) {
             tvShop.text = list.shop
-            tvDate.text = list.date
+            if(list.date.length <= 10){
+                tvDate.text = list.date
+            } else {
+                val parser =  SimpleDateFormat("yyyy-MM-dd")
+                val formatter = SimpleDateFormat("dd/MM/yyyy")
+                val formattedDate = formatter.format(parser.parse(list.date))
+                tvDate.text = formattedDate
+            }
         }
     }
 

@@ -17,6 +17,7 @@ import fr.examen.appnodejs.api.NotificationRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 
 class NotificationAdapter (
     val context: Context,
@@ -67,8 +68,6 @@ class NotificationAdapter (
             val tvNotifTitle = dlg.findViewById<TextView>(R.id.tvNotifTitle)
             val tvNotifContenu = dlg.findViewById<TextView>(R.id.tvNotifContenu)
 
-//println("dateTime")
-//            etDate.setText(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(obj.date))
             tvNotifTitle.setText(obj.titre.toString())
             tvNotifContenu.setText(obj.text.toString())
 
@@ -95,7 +94,10 @@ class NotificationAdapter (
 
         fun bindItems(notification: Notification) {
             tvNTitle.text = notification.titre
-            tvDate.text = notification.created_at
+            val parser =  SimpleDateFormat("yyyy-MM-dd")
+            val formatter = SimpleDateFormat("dd/MM/yyyy")
+            val formattedDate = formatter.format(parser.parse(notification.created_at))
+            tvDate.text = formattedDate
         }
     }
 
