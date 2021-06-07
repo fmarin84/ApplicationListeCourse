@@ -84,9 +84,6 @@ class ListShareAdapter  (
             dlg.findViewById<Button>(R.id.btEditAdd).setOnClickListener {
                 if(!etShop.text.isBlank() && !etDate.text.isBlank() ) {
 
-//                    var newDate = Date(etDate.text.toString())
-//                    println(newDate)
-
                     obj.shop= etShop.text.toString()
                     obj.date = etDate.text.toString()
 
