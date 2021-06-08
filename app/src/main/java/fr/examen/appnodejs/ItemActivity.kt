@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -55,7 +56,12 @@ class ItemActivity : AppCompatActivity() {
 //            fetchItems()
 //        }
 
-        val btAdd = findViewById(R.id.addItem) as FloatingActionButton
+        val btAdd = findViewById<FloatingActionButton>(R.id.addItem)
+
+        if(list.archived){
+            btAdd.visibility = View.GONE
+
+        }
 
         btAdd.setOnClickListener {
 

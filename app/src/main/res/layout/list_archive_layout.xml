@@ -5,43 +5,62 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/listCard"
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:layout_marginTop="@dimen/mtrl_card_spacing"
+        android:layout_marginRight="@dimen/mtrl_card_spacing"
+        android:layout_marginBottom="@dimen/mtrl_card_spacing"
+        android:minHeight="50dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textViewNotif"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="Carrefour"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
-
-            <ImageButton
-                android:id="@+id/btDelete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="190dp"
-                android:layout_toRightOf="@+id/textViewNotif"
-                android:src="@android:drawable/ic_menu_delete" />
-
-            <TextView
-                android:id="@+id/textViewDate"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="21/11/2021"
-                android:layout_below="@+id/textViewNotif"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:layout_height="match_parent"
+                android:background="#DCDBDB"
+                android:orientation="horizontal">
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/textViewDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="21/11/2021"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/textViewNotif"
+                    android:layout_width="157dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:padding="15dp"
+                    android:text="Carrefour"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+                <ImageButton
+                    android:id="@+id/btSee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_menu_view" />
+
+                <ImageButton
+                    android:id="@+id/btDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:src="@android:drawable/ic_menu_delete" />
+            </LinearLayout>
 
 
-    </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
 
 </LinearLayout>

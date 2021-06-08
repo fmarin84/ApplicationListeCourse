@@ -10,38 +10,113 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
 
-            <TextView
-                android:id="@+id/tvNTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="Liste périmer"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+<!--            <TextView-->
+<!--                android:id="@+id/tvNTitle"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="15dp"-->
+<!--                android:text="Liste périmer"-->
+<!--                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />-->
 
-            <ImageButton
-                android:id="@+id/btLue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="196dp"
-                android:layout_toRightOf="@+id/textViewNotif"
-                android:src="@android:drawable/ic_menu_view" />
+<!--            <ImageButton-->
+<!--                android:id="@+id/btLue"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="196dp"-->
+<!--                android:layout_toRightOf="@+id/textViewNotif"-->
+<!--                android:src="@android:drawable/ic_menu_view" />-->
 
-            <TextView
-                android:id="@+id/textViewDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="21/11/2021"
-                android:layout_below="@+id/tvNTitle"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+<!--            <TextView-->
+<!--                android:id="@+id/textViewDate"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="5dp"-->
+<!--                android:text="21/11/2021"-->
+<!--                android:layout_below="@+id/tvNTitle"-->
+<!--                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />-->
 
-        </RelativeLayout>
+<!--        </RelativeLayout>-->
 
 
     </androidx.cardview.widget.CardView>
+
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:layout_marginTop="@dimen/mtrl_card_spacing"
+        android:layout_marginRight="@dimen/mtrl_card_spacing"
+        android:layout_marginBottom="@dimen/mtrl_card_spacing"
+        android:minHeight="150dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvNTitle"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Liste périmer"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+
+                <ImageButton
+                    android:id="@+id/btSee"
+                    android:layout_width="64dp"
+                    android:layout_height="match_parent"
+                    android:src="@android:drawable/ic_menu_view" />
+
+                <ImageButton
+                    android:id="@+id/btLue"
+                    android:layout_width="44dp"
+                    android:layout_height="59dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_mail_lue_foreground" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="21/11/2021"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/textViewContenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BlaBlaBlalba"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

@@ -2,13 +2,17 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/menu_notif"
-        android:icon="@android:drawable/ic_dialog_email"
-        app:showAsAction="always"
-        android:title="@string/Historique"></item>
+    <item
+        android:id="@+id/menu_accueil"
+        android:icon="@drawable/ic_menu_home"
+        android:title="@string/Accueil"
+        app:showAsAction="always" />
 
-    <item android:id="@+id/menu_accueil"
-        android:title="@string/Accueil"/>
+    <item
+        android:id="@+id/menu_notif"
+        android:icon="@drawable/ic_menu_notifications"
+        android:title="@string/Historique"
+        app:showAsAction="always"></item>
 
     <item
         android:id="@+id/menu_abonnement"

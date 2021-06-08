@@ -6,12 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import fr.examen.appnodejs.api.ListShop
-import fr.examen.appnodejs.api.ListShopRequest
 import fr.examen.appnodejs.api.Notification
 import fr.examen.appnodejs.api.NotificationRequest
 import retrofit2.Call
@@ -59,6 +56,26 @@ class NotificationAdapter (
             notifyDataSetChanged()
         }
 
+        holder.btSee.setOnClickListener {
+
+            val obj = notifications[position]
+
+            val dlg = Dialog(context)
+            dlg.setContentView(R.layout.notifications_show)
+            val tvNotifTitle = dlg.findViewById<TextView>(R.id.tvNotifTitle)
+            val tvNotifContenu = dlg.findViewById<TextView>(R.id.tvNotifContenu)
+
+            tvNotifTitle.setText(obj.titre.toString())
+            tvNotifContenu.setText(obj.text.toString())
+
+            dlg.show()
+
+            dlg.findViewById<Button>(R.id.btFermer).setOnClickListener {
+                dlg.dismiss()
+            }
+
+        }
+
         holder.tvNTitle.setOnClickListener {
 
             val obj = notifications[position]
@@ -91,10 +108,13 @@ class NotificationAdapter (
         val tvNTitle = itemView.findViewById(R.id.tvNTitle) as TextView
         val tvDate = itemView.findViewById(R.id.textViewDate) as TextView
         val btLue = itemView.findViewById(R.id.btLue) as ImageView
+        val btSee = itemView.findViewById(R.id.btSee) as ImageView
+        val tvContenu = itemView.findViewById(R.id.textViewContenu) as TextView
 
         fun bindItems(notification: Notification) {
             tvNTitle.text = notification.titre
-            val parser =  SimpleDateFormat("yyyy-MM-dd")
+            tvContenu.text = notification.text
+            val parser =  SimpleDateFormat("yyyy-dd-MM")
             val formatter = SimpleDateFormat("dd/MM/yyyy")
             val formattedDate = formatter.format(parser.parse(notification.created_at))
             tvDate.text = formattedDate

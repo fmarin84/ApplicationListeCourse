@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.examen.appnodejs.api.Item
 import fr.examen.appnodejs.api.ItemRequest
 import retrofit2.Call
@@ -37,6 +38,7 @@ class ItemAdapter(
         holder.bindItems(item[position])
 
         if(isArchive === false) {
+
             holder.btModif.setOnClickListener {
 
                 val obj = item[position]
@@ -143,7 +145,6 @@ class ItemAdapter(
         val check = itemView.findViewById(R.id.checkBox) as CheckBox
         val btDelete = itemView.findViewById(R.id.btDeleteItem) as ImageView
         val btModif = itemView.findViewById(R.id.bteditItem) as ImageView
-
 
         fun bindItems(item: Item) {
             tvLabel.text = item.label

@@ -21,8 +21,10 @@
         android:layout_marginTop="550dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        app:backgroundTint="@color/green_200"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="@+id/recyclerView"
         app:layout_constraintTop_toTopOf="@+id/recyclerView"
+        app:rippleColor="#FFFFFF"
         app:srcCompat="@android:drawable/ic_input_add" />
 </androidx.constraintlayout.widget.ConstraintLayout>

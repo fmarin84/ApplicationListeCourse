@@ -101,20 +101,20 @@ class MainActivity : AppCompatActivity() {
                             override fun onFailure(call: Call<ListShop>, t: Throwable) {
                             }
 
-                            override fun onResponse(
-                                call: Call<ListShop>,
-                                response: Response<ListShop>
-                            ) {
+                            override fun onResponse(  call: Call<ListShop>,  response: Response<ListShop> ) {
                             }
 
                         })
-                    fetchLists()
 
                     etDate.text.clear()
                     etShop.text.clear()
                     dlg.dismiss()
+
+                    fetchLists()
                 }
             }
+            fetchLists()
+
         }
 
     }
@@ -132,7 +132,6 @@ class MainActivity : AppCompatActivity() {
      * Function to fetch users
      */
     private fun fetchUsers() {
-
         // Pass the token as parameter
         apiClient.getApiService(this).fetchUsers()
             .enqueue(object : Callback<List<User>> {
@@ -194,7 +193,6 @@ class MainActivity : AppCompatActivity() {
      * Function to fetch lists
      */
     private fun fetchLists() {
-
         // Pass the token as parameter
         apiClient.getApiService(this).fetchLists()
             .enqueue(object : Callback<List<ListShop>> {
@@ -211,6 +209,7 @@ class MainActivity : AppCompatActivity() {
                     val ListShopResponse = response.body()!!
 
                     if (response.code() == 200 ) {
+
                         customAdapter.list = ListShopResponse.toMutableList()
                         customAdapter.notifyDataSetChanged()
                     } else {

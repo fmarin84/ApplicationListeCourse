@@ -45,15 +45,9 @@ class CustomAdapter(
 
             val dlg = Dialog(context)
             dlg.setContentView(R.layout.list_share_edit)
-            /*
-            val etDate = dlg.findViewById<EditText>(R.id.editTextDate)
-            val etShop = dlg.findViewById<EditText>(R.id.editShop)
-            etShop.setText(obj.shop.toString())
-            */
+
             val isState = dlg.findViewById<CheckBox>(R.id.isState)
             val spUser = dlg.findViewById<Spinner>(R.id.spUser)
-
-
 
             // Pass the token as parameter
             apiClient.getApiService(context).fetchUsers()
@@ -91,7 +85,6 @@ class CustomAdapter(
             }
 
             dlg.findViewById<Button>(R.id.btPartage).setOnClickListener {
-                //if(!etShop.text.isBlank() && !etDate.text.isBlank()) {
 
                 val user = spUser.selectedItem as User
 
@@ -115,8 +108,7 @@ class CustomAdapter(
 
                     notifyDataSetChanged()
                     dlg.dismiss()
-                }
-            //}
+            }
         }
 
         holder.btArchive.setOnClickListener {
@@ -162,7 +154,7 @@ class CustomAdapter(
 
             val etDate = dlg.findViewById<EditText>(R.id.editTextDate)
 
-            val parser =  SimpleDateFormat("yyyy-MM-dd")
+            val parser =  SimpleDateFormat("yyyy-dd-MM")
             val formatter = SimpleDateFormat("dd/MM/yyyy")
             val formattedDate = formatter.format(parser.parse(obj.date))
 
@@ -284,7 +276,7 @@ class CustomAdapter(
             if(list.date.length <= 10){
                 tvDate.text = list.date
             } else {
-                val parser =  SimpleDateFormat("yyyy-MM-dd")
+                val parser =  SimpleDateFormat("yyyy-dd-MM")
                 val formatter = SimpleDateFormat("dd/MM/yyyy")
                 val formattedDate = formatter.format(parser.parse(list.date))
                 tvDate.text = formattedDate
@@ -292,7 +284,5 @@ class CustomAdapter(
 
         }
     }
-
-
 
 }

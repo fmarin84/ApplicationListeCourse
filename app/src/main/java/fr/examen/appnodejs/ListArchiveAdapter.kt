@@ -69,6 +69,12 @@ class ListArchiveAdapter (
             context.startActivity(intent)
         }
 
+        holder.btSee.setOnClickListener {
+            val intent = Intent(context, ItemActivity::class.java)
+            intent.putExtra("list", list[position])
+            context.startActivity(intent)
+        }
+
     }
 
     //this method is giving the size of the list
@@ -81,10 +87,11 @@ class ListArchiveAdapter (
         val tvShop = itemView.findViewById(R.id.textViewNotif) as TextView
         val tvDate  = itemView.findViewById(R.id.textViewDate) as TextView
         val btDelete = itemView.findViewById(R.id.btDelete) as ImageView
+        val btSee = itemView.findViewById(R.id.btSee) as ImageView
 
         fun bindItems(list: ListShop) {
             tvShop.text = list.shop
-            val parser =  SimpleDateFormat("yyyy-MM-dd")
+            val parser =  SimpleDateFormat("yyyy-dd-MM")
             val formatter = SimpleDateFormat("dd/MM/yyyy")
             val formattedDate = formatter.format(parser.parse(list.date))
             tvDate.text = formattedDate

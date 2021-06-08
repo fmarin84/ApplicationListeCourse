@@ -31,10 +31,6 @@ class LoginActivity : AppCompatActivity() {
             val login = etLogin.text.toString()
             val password = etChallenge.text.toString()
 
-            println("loginuyhergtejhrtg")
-            println(login)
-
-
             val intent = Intent(this, MainActivity::class.java)
 
             if( login.isBlank() || password.isBlank() ) {

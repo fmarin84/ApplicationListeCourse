@@ -40,7 +40,6 @@ class ListShareAdapter  (
     override fun onBindViewHolder(holder: ListShareAdapter.ViewHolder, position: Int) {
         holder.bindItems(list[position])
 
-
         holder.btModif.setOnClickListener {
 
             val obj = list[position]
@@ -52,7 +51,7 @@ class ListShareAdapter  (
 
             val etDate = dlg.findViewById<EditText>(R.id.editTextDate)
 
-            val parser =  SimpleDateFormat("yyyy-MM-dd")
+            val parser =  SimpleDateFormat("yyyy-dd-MM")
             val formatter = SimpleDateFormat("dd/MM/yyyy")
             val formattedDate = formatter.format(parser.parse(obj.date))
 
@@ -101,7 +100,7 @@ class ListShareAdapter  (
                         })
 
                     notifyDataSetChanged()
-//                    etDate.text.clear()
+                    etDate.text.clear()
                     etShop.text.clear()
                     dlg.dismiss()
                 }
@@ -182,7 +181,7 @@ class ListShareAdapter  (
             if(list.date.length <= 10){
                 tvDate.text = list.date
             } else {
-                val parser =  SimpleDateFormat("yyyy-MM-dd")
+                val parser =  SimpleDateFormat("yyyy-dd-MM")
                 val formatter = SimpleDateFormat("dd/MM/yyyy")
                 val formattedDate = formatter.format(parser.parse(list.date))
                 tvDate.text = formattedDate

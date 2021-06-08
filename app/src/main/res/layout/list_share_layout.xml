@@ -5,51 +5,127 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/listCard"
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/listCard"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textViewNotif"-->
+<!--                android:layout_width="150dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="15dp"-->
+<!--                android:text="Carrefour"-->
+<!--                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />-->
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/btModif"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="140dp"-->
+<!--                android:layout_toRightOf="@+id/textViewNotif"-->
+<!--                android:src="@android:drawable/ic_menu_edit" />-->
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/btDelete"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:layout_toRightOf="@+id/btModif"-->
+<!--                android:src="@android:drawable/ic_menu_delete" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textViewDate"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="5dp"-->
+<!--                android:text="21/11/2021"-->
+<!--                android:layout_below="@+id/textViewNotif"-->
+<!--                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />-->
+
+<!--        </RelativeLayout>-->
+
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:layout_marginTop="@dimen/mtrl_card_spacing"
+        android:layout_marginRight="@dimen/mtrl_card_spacing"
+        android:layout_marginBottom="@dimen/mtrl_card_spacing"
+        android:minHeight="120dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textViewNotif"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="Carrefour"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
-
-            <ImageButton
-                android:id="@+id/btModif"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="140dp"
-                android:layout_toRightOf="@+id/textViewNotif"
-                android:src="@android:drawable/ic_menu_edit" />
-
-            <ImageButton
-                android:id="@+id/btDelete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/btModif"
-                android:src="@android:drawable/ic_menu_delete" />
-
-            <TextView
-                android:id="@+id/textViewDate"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="21/11/2021"
-                android:layout_below="@+id/textViewNotif"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:layout_height="match_parent"
+                android:background="#DCDBDB"
+                android:orientation="horizontal">
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/textViewDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="21/11/2021"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/textViewNotif"
+                    android:layout_width="234dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:padding="15dp"
+                    android:text="Carrefour"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+                <ImageButton
+                    android:id="@+id/btSee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@android:drawable/ic_menu_view" />
+            </LinearLayout>
 
 
-    </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btModif"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="140dp"
+                    android:src="@android:drawable/ic_menu_edit" />
+
+                <ImageButton
+                    android:id="@+id/btDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:src="@android:drawable/ic_menu_delete" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>
