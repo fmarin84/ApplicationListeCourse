@@ -150,6 +150,11 @@ class ListShareAdapter  (
             builder.create().show()
         }
 
+        holder.btSee.setOnClickListener {
+            val intent = Intent(context, ItemActivity::class.java)
+            intent.putExtra("list", list[position])
+            context.startActivity(intent)
+        }
         holder.tvShop.setOnClickListener {
             val intent = Intent(context, ItemActivity::class.java)
             intent.putExtra("list", list[position])
@@ -169,6 +174,7 @@ class ListShareAdapter  (
         val tvDate  = itemView.findViewById(R.id.textViewDate) as TextView
         val btDelete = itemView.findViewById(R.id.btDelete) as ImageView
         val btModif = itemView.findViewById(R.id.btModif) as ImageView
+        val btSee = itemView.findViewById(R.id.btSee) as ImageView
 
         fun bindItems(list: ListShop) {
             if(list.state == 0) {

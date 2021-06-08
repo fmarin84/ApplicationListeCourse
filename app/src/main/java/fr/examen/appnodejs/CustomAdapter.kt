@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.examen.appnodejs.api.ListShop
 import fr.examen.appnodejs.api.ListShopRequest
 import fr.examen.appnodejs.api.User
-import kotlinx.android.synthetic.main.list_share_edit.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,13 +53,9 @@ class CustomAdapter(
                     .enqueue(object : Callback<List<User>> {
 
                         override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                            TODO("Not yet implemented")
                         }
 
-                        override fun onResponse(
-                            call: Call<List<User>>,
-                            response: Response<List<User>>
-                        ) {
+                        override fun onResponse( call: Call<List<User>>, response: Response<List<User>> ) {
 
                             val UsersResponse = response.body()!!
 

@@ -15,9 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import fr.examen.appnodejs.api.Item
-import fr.examen.appnodejs.api.ItemRequest
-import fr.examen.appnodejs.api.ListShop
+import fr.examen.appnodejs.api.*
 import kotlinx.android.synthetic.main.activity_item.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,25 +41,46 @@ class ItemActivity : AppCompatActivity() {
 
         val list = intent.getSerializableExtra("list") as ListShop
 
-
-        initRecyclerView(list.archived)
-
-        //adding a layoutmanager
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-
-        fetchItems()
-//        if(list.archived){
-//            fetchItemsDisable()
-//        } else {
-//            fetchItems()
-//        }
-
         val btAdd = findViewById<FloatingActionButton>(R.id.addItem)
 
         if(list.archived){
             btAdd.visibility = View.GONE
-
         }
+
+        apiClient.getApiService(this).fetchCurrentUser()
+                .enqueue(object : Callback<User> {
+
+                    override fun onFailure(call: Call<User>, t: Throwable) {
+                    }
+
+                    override fun onResponse(call: Call<User>, response: Response<User>) {
+                        val UsersResponse = response.body()!!
+                        println("UsersResponse.id")
+                        println(UsersResponse.id)
+
+
+                        if(UsersResponse.id == list.useraccount_id){
+                            fetchItems()
+                            initRecyclerView(list.archived, false)
+                        } else {
+                            fetchShareItems()
+
+                            if(list.state == 0) {
+                                btAdd.visibility = View.GONE
+                                initRecyclerView(list.archived, true)
+                            } else {
+                                btAdd.visibility = View.VISIBLE
+                                initRecyclerView(list.archived, false)
+                            }
+                        }
+
+                    }
+                })
+
+
+        //adding a layoutmanager
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
+
 
         btAdd.setOnClickListener {
 
@@ -99,22 +118,20 @@ class ItemActivity : AppCompatActivity() {
 
                         })
 
-//                    itemAdapter.notifyDataSetChanged()
-                    finish()
-                    startActivity(getIntent());
-
                     qte.text.clear()
                     label.text.clear()
                     dlg.dismiss()
+                    fetchShareItems()
                 }
             }
+            fetchShareItems()
         }
 
     }
 
-    private fun initRecyclerView(isArchive: Boolean){
+    private fun initRecyclerView(isArchive: Boolean, isShareEdit: Boolean){
         rcItem.apply {
-            itemAdapter = ItemAdapter(context, apiClient, isArchive)
+            itemAdapter = ItemAdapter(context, apiClient, isArchive, isShareEdit)
             adapter = itemAdapter
         }
     }
@@ -128,13 +145,39 @@ class ItemActivity : AppCompatActivity() {
 
         // Pass the token as parameter
         apiClient.getApiService(this).fetchItems(listId = list.id)
+                .enqueue(object : Callback<List<Item>> {
+
+                    override fun onFailure(call: Call<List<Item>>, t: Throwable) {
+                    }
+
+                    override fun onResponse(call: Call<List<Item>>, response: Response<List<Item>>) {
+                        val ItemResponse = response.body()!!
+
+                        if (response.code() == 200 ) {
+                            itemAdapter.item = ItemResponse.toMutableList()
+                            itemAdapter.notifyDataSetChanged()
+                        } else {
+                            // Error logging in
+                        }
+                    }
+                })
+    }
+
+    /**
+     * Function to fetch items
+     */
+    private fun fetchShareItems() {
+
+        val list = intent.getSerializableExtra("list") as ListShop
+
+        // Pass the token as parameter
+        apiClient.getApiService(this).fetchShareItems(listId = list.id)
             .enqueue(object : Callback<List<Item>> {
 
                 override fun onFailure(call: Call<List<Item>>, t: Throwable) {
                 }
 
                 override fun onResponse(call: Call<List<Item>>, response: Response<List<Item>>) {
-
                     val ItemResponse = response.body()!!
 
                     if (response.code() == 200 ) {

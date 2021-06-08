@@ -19,7 +19,8 @@ import retrofit2.Response
 class ItemAdapter(
     val context: Context,
     val apiClient: ApiClient,
-    val isArchive: Boolean
+    val isArchive: Boolean,
+    val isShareEdit: Boolean
 ): RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
 
     var item = mutableListOf<Item>()
@@ -27,7 +28,7 @@ class ItemAdapter(
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapter.ViewHolder {
         var v = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
-        if(isArchive){
+        if(isArchive || isShareEdit){
             v = LayoutInflater.from(parent.context).inflate(R.layout.item_archive_layout, parent, false)
         }
         return ViewHolder(v)
@@ -36,6 +37,11 @@ class ItemAdapter(
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: ItemAdapter.ViewHolder, position: Int) {
         holder.bindItems(item[position])
+
+//        if(isShareEdit === true){
+//
+//        }
+
 
         if(isArchive === false) {
 

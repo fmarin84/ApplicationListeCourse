@@ -55,6 +55,10 @@ interface ApiService {
     @GET("item/list/{listId}")
     fun fetchItems(@Path("listId") listId: Int):  Call<kotlin.collections.List<Item>>
 
+    @GET(Constants.ITEM_SHARE_URL)
+    fun fetchShareItems(@Path("listId") listId: Int):  Call<kotlin.collections.List<Item>>
+
+
 
     @Headers("Content-Type:application/json")
     @POST(Constants.LIST_URL)

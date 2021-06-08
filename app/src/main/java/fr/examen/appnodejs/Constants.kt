@@ -8,6 +8,7 @@ object Constants {
     const val LIST_URL = "list"
     const val LIST_ARCHIVE_URL = "list/archive"
     const val ITEM_URL = "item"
+    const val ITEM_SHARE_URL = "item/share/{listId}"
     const val LIST_SHARE_ADD_URL = "/share/{listId}/{userId}/{state}"
     const val USERS_URL = "/useraccount/users"
     const val LIST_SHARE_DELETE_URL = "/share/delete/{listId}/{userId}"
