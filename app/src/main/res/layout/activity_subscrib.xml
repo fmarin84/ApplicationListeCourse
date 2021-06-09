@@ -49,14 +49,31 @@
         android:inputType="number"
         android:hint="0489 **** **** **** **45" />
 
-    <EditText
-        android:id="@+id/etCVV"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:ems="10"
-        android:inputType="number"
-        android:hint="***"/>
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etDateExpire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="02/23"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/etCVV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="***"
+            android:inputType="number" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btSubscrib"

@@ -79,11 +79,15 @@ class ItemAdapter(
                                 }
 
                             })
-
+                        val toast = Toast.makeText(context, "L'article a bien été modifié.", Toast.LENGTH_LONG)
+                        toast.show()
                         notifyDataSetChanged()
                         qte.text.clear()
                         label.text.clear()
                         dlg.dismiss()
+                    } else {
+                        val toast = Toast.makeText(context, "Tous les champs sont obligatoires.", Toast.LENGTH_LONG)
+                        toast.show()
                     }
                 }
             }
@@ -109,6 +113,8 @@ class ItemAdapter(
                                     }
 
                                 })
+                            val toast = Toast.makeText(context, "L'article a bien été supprimé.", Toast.LENGTH_LONG)
+                            toast.show()
                             item.removeAt(position)
                             notifyDataSetChanged()
                             dialog.dismiss()
@@ -133,6 +139,15 @@ class ItemAdapter(
                         }
 
                     })
+
+                if(obj.checked ){
+                    val toast = Toast.makeText(context, "Article acheté.", Toast.LENGTH_LONG)
+                    toast.show()
+                } else{
+                    val toast = Toast.makeText(context, "Article n'a pas été acheté.", Toast.LENGTH_LONG)
+                    toast.show()
+                }
+
             }
         }
 

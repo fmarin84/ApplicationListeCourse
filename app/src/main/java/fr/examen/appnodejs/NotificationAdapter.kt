@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import fr.examen.appnodejs.api.Notification
 import fr.examen.appnodejs.api.NotificationRequest
@@ -52,6 +53,8 @@ class NotificationAdapter (
 
                 })
 
+            val toast = Toast.makeText(context, "Notification marquée comme lue.", Toast.LENGTH_LONG)
+            toast.show()
             notifications.removeAt(position)
             notifyDataSetChanged()
         }

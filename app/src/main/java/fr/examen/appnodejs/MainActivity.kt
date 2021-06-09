@@ -5,26 +5,26 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import android.widget.ArrayAdapter
 import fr.examen.appnodejs.api.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.list_share_edit.*
 import retrofit2.*
-import java.text.SimpleDateFormat
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
     private var TAG = "MainActivity"
+    private var isAbonne: Boolean = false
     lateinit var customAdapter: CustomAdapter
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
@@ -50,18 +50,17 @@ class MainActivity : AppCompatActivity() {
         fetchLists()
 
         // user
-
-        val btAdd = findViewById(R.id.addList) as FloatingActionButton
+        val btAdd = findViewById<FloatingActionButton>(R.id.addList)
         btAdd.setOnClickListener {
 
             val dlg = Dialog(context)
             dlg.setContentView(R.layout.list_edit)
 
             val tvItemTitle = dlg.findViewById<TextView>(R.id.tvListTitle)
-            tvItemTitle.setText( "Ajout d'une liste de course")
+            tvItemTitle.setText("Ajout d'une liste de course")
 
             val btAdd = dlg.findViewById<Button>(R.id.btEditAdd)
-            btAdd.setText( "Ajouter")
+            btAdd.setText("Ajouter")
 
 //            val etDate = dlg.findViewById<EditText>(R.id.editTextDate)
             val etShop = dlg.findViewById<EditText>(R.id.editShop)
@@ -75,11 +74,11 @@ class MainActivity : AppCompatActivity() {
                 val year = cldr[Calendar.YEAR]
                 // date picker dialog
                 val picker = DatePickerDialog(
-                    context,
-                    { view, year, monthOfYear, dayOfMonth -> etDate.setText(dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year) },
-                    year,
-                    month,
-                    day
+                        context,
+                        { view, year, monthOfYear, dayOfMonth -> etDate.setText(dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year) },
+                        year,
+                        month,
+                        day
                 )
                 picker.show()
             })
@@ -94,24 +93,31 @@ class MainActivity : AppCompatActivity() {
             dlg.findViewById<Button>(R.id.btEditAdd).setOnClickListener {
                 if(!etShop.text.isBlank() && !etDate.text.isBlank()) {
 
-                    val obj = ListShop(0,  etShop.text.toString(), etDate.text.toString(), false, 0, 0)
+                    val obj = ListShop(0, etShop.text.toString(), etDate.text.toString(), false, 0, 0)
 
                     apiClient.getApiService(context).insertList(ListShopRequest(list = obj))
                         .enqueue(object : Callback<ListShop> {
                             override fun onFailure(call: Call<ListShop>, t: Throwable) {
                             }
 
-                            override fun onResponse(  call: Call<ListShop>,  response: Response<ListShop> ) {
+                            override fun onResponse(call: Call<ListShop>, response: Response<ListShop>) {
                             }
 
                         })
 
+                    val toast = Toast.makeText(context, "La liste a bien été ajoutée.", Toast.LENGTH_LONG)
+                    toast.show()
                     etDate.text.clear()
                     etShop.text.clear()
                     dlg.dismiss()
 
-                    fetchLists()
+                } else {
+                    val toast = Toast.makeText(context, "Tous les champs sont obligatoires.", Toast.LENGTH_LONG)
+                    toast.show()
                 }
+                fetchLists()
+
+
             }
             fetchLists()
 
@@ -144,7 +150,7 @@ class MainActivity : AppCompatActivity() {
 
                     val UsersResponse = response.body()!!
 
-                    if (response.code() == 200 ) {
+                    if (response.code() == 200) {
                         val adapter: ArrayAdapter<User> = ArrayAdapter(
                                 this@MainActivity,
                                 android.R.layout.simple_spinner_item,
@@ -168,23 +174,23 @@ class MainActivity : AppCompatActivity() {
                     val UsersResponse = response.body()!!
 
                     apiClient.getApiService(this@MainActivity).reauth(LoginRequest(login = UsersResponse.login, password = UsersResponse.challenge))
-                        .enqueue(object : Callback<LoginResponse> {
-                            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                                // Error logging in
-                            }
-
-                            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                                val loginResponse = response.body()
-
-                                if (response.code() == 200 && loginResponse != null) {
-                                    sessionManager.saveAuthToken(loginResponse.token)
-                                } else {
+                            .enqueue(object : Callback<LoginResponse> {
+                                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                                     // Error logging in
-                                    val toast = Toast.makeText(applicationContext, " Identifiants invalides !", Toast.LENGTH_LONG)
-                                    toast.show()
                                 }
-                            }
-                        })
+
+                                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                                    val loginResponse = response.body()
+
+                                    if (response.code() == 200 && loginResponse != null) {
+                                        sessionManager.saveAuthToken(loginResponse.token)
+                                    } else {
+                                        // Error logging in
+                                        val toast = Toast.makeText(applicationContext, " Identifiants invalides !", Toast.LENGTH_LONG)
+                                        toast.show()
+                                    }
+                                }
+                            })
                 }
             })
     }
@@ -202,13 +208,13 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onResponse(
-                    call: Call<List<ListShop>>,
-                    response: Response<List<ListShop>>
+                        call: Call<List<ListShop>>,
+                        response: Response<List<ListShop>>
                 ) {
                     // Handle function to display posts
                     val ListShopResponse = response.body()!!
 
-                    if (response.code() == 200 ) {
+                    if (response.code() == 200) {
 
                         customAdapter.list = ListShopResponse.toMutableList()
                         customAdapter.notifyDataSetChanged()

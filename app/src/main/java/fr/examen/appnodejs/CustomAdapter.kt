@@ -101,6 +101,9 @@ class CustomAdapter(
 
                             })
 
+                    val toast = Toast.makeText(context, "La liste a bien été partagée.", Toast.LENGTH_LONG)
+                    toast.show()
+
                     notifyDataSetChanged()
                     dlg.dismiss()
             }
@@ -132,6 +135,10 @@ class CustomAdapter(
                                 }
 
                             })
+
+                        val toast = Toast.makeText(context, "La liste a bien été archivée.", Toast.LENGTH_LONG)
+                        toast.show()
+
                         list.removeAt(position)
                         notifyDataSetChanged()
                         dialog.dismiss()
@@ -149,9 +156,19 @@ class CustomAdapter(
 
             val etDate = dlg.findViewById<EditText>(R.id.editTextDate)
 
+
             val parser =  SimpleDateFormat("yyyy-dd-MM")
             val formatter = SimpleDateFormat("dd/MM/yyyy")
-            val formattedDate = formatter.format(parser.parse(obj.date))
+            var formattedDate = ""
+
+            println(obj.date)
+
+            if(obj.date.length <= 10){
+                formattedDate = obj.date
+            } else {
+                formattedDate = formatter.format(parser.parse(obj.date))
+            }
+
 
             etDate.setOnClickListener(View.OnClickListener {
                 val cldr = Calendar.getInstance()
@@ -189,18 +206,19 @@ class CustomAdapter(
                             override fun onFailure(call: Call<ListShop>, t: Throwable) {
                             }
 
-                            override fun onResponse(
-                                call: Call<ListShop>,
-                                response: Response<ListShop>
-                            ) {
+                            override fun onResponse( call: Call<ListShop>, response: Response<ListShop> ) {
                             }
 
                         })
-
+                    val toast = Toast.makeText(context, "La liste a bien été modifié.", Toast.LENGTH_LONG)
+                    toast.show()
                     notifyDataSetChanged()
                     etDate.text.clear()
                     etShop.text.clear()
                     dlg.dismiss()
+                } else {
+                    val toast = Toast.makeText(context, "Tous les champs sont obligatoires.", Toast.LENGTH_LONG)
+                    toast.show()
                 }
             }
         }
@@ -229,7 +247,8 @@ class CustomAdapter(
                                 }
 
                             })
-
+                        val toast = Toast.makeText(context, "La liste a bien été supprimée.", Toast.LENGTH_LONG)
+                        toast.show()
                         list.removeAt(position)
                         notifyDataSetChanged()
                         dialog.dismiss()

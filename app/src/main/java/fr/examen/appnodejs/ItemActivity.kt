@@ -7,10 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,40 +44,10 @@ class ItemActivity : AppCompatActivity() {
             btAdd.visibility = View.GONE
         }
 
-        apiClient.getApiService(this).fetchCurrentUser()
-                .enqueue(object : Callback<User> {
-
-                    override fun onFailure(call: Call<User>, t: Throwable) {
-                    }
-
-                    override fun onResponse(call: Call<User>, response: Response<User>) {
-                        val UsersResponse = response.body()!!
-                        println("UsersResponse.id")
-                        println(UsersResponse.id)
-
-
-                        if(UsersResponse.id == list.useraccount_id){
-                            fetchItems()
-                            initRecyclerView(list.archived, false)
-                        } else {
-                            fetchShareItems()
-
-                            if(list.state == 0) {
-                                btAdd.visibility = View.GONE
-                                initRecyclerView(list.archived, true)
-                            } else {
-                                btAdd.visibility = View.VISIBLE
-                                initRecyclerView(list.archived, false)
-                            }
-                        }
-
-                    }
-                })
-
+        fetchItem(list)
 
         //adding a layoutmanager
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-
 
         btAdd.setOnClickListener {
 
@@ -90,8 +57,8 @@ class ItemActivity : AppCompatActivity() {
             val tvItemTitle = dlg.findViewById<TextView>(R.id.tvItemTitle)
             tvItemTitle.setText( "Ajout d'un acrticle")
 
-            val btAdd = dlg.findViewById<Button>(R.id.btEditAdd)
-            btAdd.setText( "Ajouter")
+            val btAddEdit = dlg.findViewById<Button>(R.id.btEditAdd)
+            btAddEdit.setText( "Ajouter")
 
             val qte = dlg.findViewById<EditText>(R.id.editQte)
             val label = dlg.findViewById<EditText>(R.id.editLabel)
@@ -117,14 +84,18 @@ class ItemActivity : AppCompatActivity() {
                             }
 
                         })
-
+                    val toast = Toast.makeText(this, "L'article a bien été modifié.", Toast.LENGTH_LONG)
+                    toast.show()
                     qte.text.clear()
                     label.text.clear()
                     dlg.dismiss()
-                    fetchShareItems()
+                    fetchItem(list)
+                } else {
+                    val toast = Toast.makeText(this, "Tous les champs sont obligatoires.", Toast.LENGTH_LONG)
+                    toast.show()
                 }
             }
-            fetchShareItems()
+            fetchItem(list)
         }
 
     }
@@ -136,6 +107,36 @@ class ItemActivity : AppCompatActivity() {
         }
     }
 
+    private fun fetchItem(list:ListShop) {
+        val btAdd = findViewById<FloatingActionButton>(R.id.addItem)
+
+        apiClient.getApiService(this).fetchCurrentUser()
+            .enqueue(object : Callback<User> {
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                }
+
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    val UsersResponse = response.body()!!
+
+                    if(UsersResponse.id == list.useraccount_id){
+                        fetchItems()
+                        initRecyclerView(list.archived, false)
+
+                    } else {
+                        fetchShareItems()
+                        if(list.state == 0) {
+                            btAdd.visibility = View.GONE
+                            initRecyclerView(list.archived, true)
+                        } else {
+                            btAdd.visibility = View.VISIBLE
+                            initRecyclerView(list.archived, false)
+                        }
+                    }
+                }
+            })
+    }
+
     /**
      * Function to fetch items
      */
@@ -145,22 +146,22 @@ class ItemActivity : AppCompatActivity() {
 
         // Pass the token as parameter
         apiClient.getApiService(this).fetchItems(listId = list.id)
-                .enqueue(object : Callback<List<Item>> {
+            .enqueue(object : Callback<List<Item>> {
 
-                    override fun onFailure(call: Call<List<Item>>, t: Throwable) {
+                override fun onFailure(call: Call<List<Item>>, t: Throwable) {
+                }
+
+                override fun onResponse(call: Call<List<Item>>, response: Response<List<Item>>) {
+                    val ItemResponse = response.body()!!
+
+                    if (response.code() == 200 ) {
+                        itemAdapter.item = ItemResponse.toMutableList()
+                        itemAdapter.notifyDataSetChanged()
+                    } else {
+                        // Error logging in
                     }
-
-                    override fun onResponse(call: Call<List<Item>>, response: Response<List<Item>>) {
-                        val ItemResponse = response.body()!!
-
-                        if (response.code() == 200 ) {
-                            itemAdapter.item = ItemResponse.toMutableList()
-                            itemAdapter.notifyDataSetChanged()
-                        } else {
-                            // Error logging in
-                        }
-                    }
-                })
+                }
+            })
     }
 
     /**

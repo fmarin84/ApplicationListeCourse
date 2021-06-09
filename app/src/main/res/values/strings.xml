@@ -17,6 +17,7 @@
     <string name="Share">Partage</string>
     <string name="Deco">Déconnexion</string>
 
+    <string name="subscrib_message_erreur">Vous êtes déjà un membre abonnée ! \nVous ne pouvez pas souscrire deux fois à un abonnement.</string>
     <string name="subscrib_message_confir">Vous êtes sur le points de passer commande veuiller confirmer afin de prendre en compte votre requete.</string>
     <string name="list_message_delete_confir">Etes vous sur de vouloir supprimer cette liste</string>
     <string name="list_message_archive_confir">Etes vous sur de vouloir archiver cette list</string>
@@ -25,5 +26,6 @@
     <string name="buttondelete">Supprimer</string>
     <string name="buttoncancel">Annuler</string>
     <string name="buttonconfirm">Confirmer</string>
+    <string name="buttonclose">Fermer</string>
 
 </resources>

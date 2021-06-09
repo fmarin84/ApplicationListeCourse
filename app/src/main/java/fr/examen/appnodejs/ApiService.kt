@@ -7,6 +7,9 @@ import retrofit2.http.*
 
 interface ApiService {
 
+    @GET("/useraccount/roleuser/{userId}")
+    fun fetchRolesUser(@Path("userId") userId: Int ):  Call<List<Role>>
+
     @Headers("Content-Type:application/json")
     @POST(Constants.ROLE_USER_URL)
     fun addRoleUser(@Path("userId") userId: Int, @Path("roleId") roleId: Int):  Call<User>
@@ -20,16 +23,16 @@ interface ApiService {
     fun updateNotification(@Body request: NotificationRequest ):  Call<Notification>
 
     @GET(Constants.NOTIFICATION_GET_URL)
-    fun fetchAllNotifications(@Path("userId") userId: Int ):  Call<kotlin.collections.List<Notification>>
+    fun fetchAllNotifications(@Path("userId") userId: Int ):  Call<List<Notification>>
 
     @GET(Constants.LIST_SHARE_URL)
-    fun fetchListsShare():  Call<kotlin.collections.List<ListShop>>
+    fun fetchListsShare():  Call<List<ListShop>>
 
     @DELETE(Constants.LIST_SHARE_DELETE_URL)
     fun deleteListShare(@Path("listId") listId: Int , @Path("userId") userId: Int  ):  Call<ListShop>
 
     @GET(Constants.USERS_URL)
-    fun fetchUsers():  Call<kotlin.collections.List<User>>
+    fun fetchUsers():  Call<List<User>>
 
     @GET(Constants.CURRENT_USER_URL)
     fun fetchCurrentUser():  Call<User>
@@ -39,32 +42,30 @@ interface ApiService {
     fun addListShare(@Path("listId") listId: Int , @Path("userId") userId: Int , @Path("state") state: Int  ):  Call<ListShop>
 
     @GET(Constants.LIST_ARCHIVE_URL)
-    fun fetchListsArchive():  Call<kotlin.collections.List<ListShop>>
+    fun fetchListsArchive():  Call<List<ListShop>>
 
     @Headers("Content-Type:application/json")
     @POST(Constants.ITEM_URL)
     fun insertItem(@Body request: ItemRequest ):  Call<Item>
 
-    @DELETE("item/{id}")
+    @DELETE(Constants.GET_ITEM_URL)
     fun deleteItem(@Path("id") id: Int ):  Call<Item>
 
     @Headers("Content-Type:application/json")
     @PUT(Constants.ITEM_URL)
     fun updateItem(@Body request: ItemRequest ):  Call<Item>
 
-    @GET("item/list/{listId}")
-    fun fetchItems(@Path("listId") listId: Int):  Call<kotlin.collections.List<Item>>
+    @GET(Constants.ITEM_LIST_URL)
+    fun fetchItems(@Path("listId") listId: Int):  Call<List<Item>>
 
     @GET(Constants.ITEM_SHARE_URL)
-    fun fetchShareItems(@Path("listId") listId: Int):  Call<kotlin.collections.List<Item>>
-
-
+    fun fetchShareItems(@Path("listId") listId: Int):  Call<List<Item>>
 
     @Headers("Content-Type:application/json")
     @POST(Constants.LIST_URL)
     fun insertList(@Body request: ListShopRequest ):  Call<ListShop>
 
-    @DELETE("list/{id}")
+    @DELETE(Constants.GET_LIST_URL)
     fun deleteList(@Path("id") id: Int ):  Call<ListShop>
 
     @Headers("Content-Type:application/json")
@@ -72,9 +73,8 @@ interface ApiService {
     fun updateList(@Body request: ListShopRequest ):  Call<ListShop>
 
     @GET(Constants.LIST_URL)
-    fun fetchLists():  Call<kotlin.collections.List<ListShop>>
+    fun fetchLists():  Call<List<ListShop>>
 
-    //@FormUrlEncoded
     @Headers("Content-Type:application/json")
     @POST(Constants.LOGIN_URL)
     fun login(@Body request: LoginRequest ): Call<LoginResponse>

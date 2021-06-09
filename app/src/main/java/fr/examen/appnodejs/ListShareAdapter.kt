@@ -9,10 +9,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import fr.examen.appnodejs.api.ListShop
 import fr.examen.appnodejs.api.ListShopRequest
@@ -103,6 +100,9 @@ class ListShareAdapter  (
                     etDate.text.clear()
                     etShop.text.clear()
                     dlg.dismiss()
+                } else {
+                    val toast = Toast.makeText(context, "Tous les champs sont obligatoires.", Toast.LENGTH_LONG)
+                    toast.show()
                 }
             }
         }
