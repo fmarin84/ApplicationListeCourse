@@ -50,11 +50,8 @@ class SubscribActivity : AppCompatActivity() {
                                         val roles = response.body()
                                         if (roles != null) {
                                             for (role in roles.toMutableList()) {
-                                                println(role)
 
                                                 if (role.level == 20) {
-                                                    println("isAbonne a true")
-
                                                     isAbonne = true
                                                 }
                                             }

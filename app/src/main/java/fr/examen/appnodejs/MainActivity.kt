@@ -110,19 +110,16 @@ class MainActivity : AppCompatActivity() {
                     etDate.text.clear()
                     etShop.text.clear()
                     dlg.dismiss()
+                    fetchLists()
 
                 } else {
                     val toast = Toast.makeText(context, "Tous les champs sont obligatoires.", Toast.LENGTH_LONG)
                     toast.show()
                 }
                 fetchLists()
-
-
             }
             fetchLists()
-
         }
-
     }
 
     private fun initRecyclerView(){

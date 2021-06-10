@@ -161,8 +161,6 @@ class CustomAdapter(
             val formatter = SimpleDateFormat("dd/MM/yyyy")
             var formattedDate = ""
 
-            println(obj.date)
-
             if(obj.date.length <= 10){
                 formattedDate = obj.date
             } else {
