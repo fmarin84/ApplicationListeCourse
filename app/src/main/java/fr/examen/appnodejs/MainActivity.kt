@@ -2,19 +2,23 @@ package fr.examen.appnodejs
 
 
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
-import android.app.Dialog
+import android.app.*
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.examen.appnodejs.api.*
+import fr.examen.appnodejs.api.Notification
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.list_share_edit.*
 import retrofit2.*
@@ -28,6 +32,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var customAdapter: CustomAdapter
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
+
+    private val CHANNEL_ID = "channel_id"
+    private val notificationId = 101
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +55,8 @@ class MainActivity : AppCompatActivity() {
 
         reAuth()
         fetchLists()
+
+        fetchAllNotifications()
 
         // user
         val btAdd = findViewById<FloatingActionButton>(R.id.addList)
@@ -122,13 +131,76 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+    /**
+     * Function to fetch Notifications
+     */
+    private fun fetchAllNotifications() {
+
+        // Pass the token as parameter
+
+        apiClient.getApiService(this).fetchCurrentUser()
+                .enqueue(object : Callback<User> {
+
+                    override fun onFailure(call: Call<User>, t: Throwable) {
+                    }
+
+                    override fun onResponse(call: Call<User>, response: Response<User>) {
+                        val UsersResponse = response.body()!!
+
+                        apiClient.getApiService(this@MainActivity)
+                                .fetchAllNotifications(UsersResponse.id)
+                                .enqueue(object : Callback<List<Notification>> {
+
+                                    override fun onResponse(
+                                            call: Call<List<Notification>>,
+                                            response: Response<List<Notification>>
+                                    ) {
+                                        val NotificationResponse = response.body()!!
+
+                                        if (response.code() == 200) {
+
+
+                                            for (notif in NotificationResponse){
+                                                println(notif)
+                                                sendNotification(notif.titre , notif.text)
+                                            }
+
+                                        }
+                                    }
+
+                                    override fun onFailure(call: Call<List<Notification>>, t: Throwable) {
+                                    }
+                                })
+                    }
+                })
+    }
+
+    private fun sendNotification(titre:String, text:String) {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_notifications_foreground)
+                .setContentTitle(titre)
+                .setContentText(text)
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this)){
+            notify(notificationId, builder.build())
+        }
+    }
+
     private fun initRecyclerView(){
         recyclerView.apply {
             customAdapter = CustomAdapter(context, apiClient)
             adapter = customAdapter
         }
     }
-
 
 
     /**
